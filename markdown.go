@@ -1,7 +1,7 @@
 package wxworkbot
 
-type MarkdownMessage struct {
-	Message
+type markdownMessage struct {
+	message
 	Markdown Markdown `json:"markdown"`
 }
 

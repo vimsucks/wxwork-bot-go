@@ -1,7 +1,7 @@
 package wxworkbot
 
-type NewsMessage struct {
-	Message
+type newsMessage struct {
+	message
 	News News `json:"news"`
 }
 

@@ -36,7 +36,6 @@ func New(botKey string) *WxWorkBot {
 }
 
 // 发送消息，允许的参数类型：Text、Markdown、Image、News
-// 也可以传 TextMessage 等，但直接传 Text 对于调用方来说较方便，并且 Text 也会被自动包装成 TextMessage
 func (bot *WxWorkBot) Send(msg interface{}) error {
 	msgBytes, err := marshalMessage(msg)
 	if err != nil {
@@ -81,46 +80,46 @@ func marshal(msg interface{}) ([]byte, error) {
 // 将消息包装成企信接口要求的格式，返回 json bytes
 func marshalMessage(msg interface{}) ([]byte, error) {
 	if text, ok := msg.(Text); ok {
-		textMsg := TextMessage{
-			Message: Message{MsgType: "text"},
+		textMsg := textMessage{
+			message: message{MsgType: "text"},
 			Text:    text,
 		}
 		return marshal(textMsg)
 	}
-	if textMsg, ok := msg.(TextMessage); ok {
+	if textMsg, ok := msg.(textMessage); ok {
 		textMsg.MsgType = "text"
 		return marshal(textMsg)
 	}
 	if markdown, ok := msg.(Markdown); ok {
-		markdownMsg := MarkdownMessage{
-			Message:  Message{MsgType: "markdown"},
+		markdownMsg := markdownMessage{
+			message:  message{MsgType: "markdown"},
 			Markdown: markdown,
 		}
 		return marshal(markdownMsg)
 	}
-	if markdownMsg, ok := msg.(MarkdownMessage); ok {
+	if markdownMsg, ok := msg.(markdownMessage); ok {
 		markdownMsg.MsgType = "markdown"
 		return marshal(markdownMsg)
 	}
 	if image, ok := msg.(Image); ok {
-		imageMsg := ImageMessage{
-			Message: Message{MsgType: "image"},
+		imageMsg := imageMessage{
+			message: message{MsgType: "image"},
 			Image:   image,
 		}
 		return marshal(imageMsg)
 	}
-	if imageMsg, ok := msg.(ImageMessage); ok {
+	if imageMsg, ok := msg.(imageMessage); ok {
 		imageMsg.MsgType = "image"
 		return marshal(imageMsg)
 	}
 	if news, ok := msg.(News); ok {
-		newsMsg := NewsMessage{
-			Message: Message{MsgType: "news"},
+		newsMsg := newsMessage{
+			message: message{MsgType: "news"},
 			News:    news,
 		}
 		return marshal(newsMsg)
 	}
-	if newsMsg, ok := msg.(NewsMessage); ok {
+	if newsMsg, ok := msg.(newsMessage); ok {
 		newsMsg.MsgType = "news"
 		return marshal(newsMsg)
 	}

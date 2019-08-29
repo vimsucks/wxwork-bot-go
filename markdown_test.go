@@ -14,7 +14,7 @@ func TestMarkdownMessage(t *testing.T) {
 				"content": "<font color=\"warning\">233</font>"
 			}
 		}`
-	var markdownMsg MarkdownMessage
+	var markdownMsg markdownMessage
 	err := json.Unmarshal([]byte(jsonString), &markdownMsg)
 	assert.Nil(t, err)
 	assert.Equal(t, markdownMsg.MsgType, "markdown")

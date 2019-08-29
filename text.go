@@ -1,7 +1,7 @@
 package wxworkbot
 
-type TextMessage struct {
-	Message
+type textMessage struct {
+	message
 	Text Text `json:"text"`
 }
 

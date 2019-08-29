@@ -1,5 +1,5 @@
 package wxworkbot
 
-type Message struct {
+type message struct {
 	MsgType string `json:"msgtype"`
 }

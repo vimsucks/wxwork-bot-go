@@ -22,7 +22,7 @@ func TestNewsMessage(t *testing.T) {
 			}
 		}
 	`
-	var newsMsg NewsMessage
+	var newsMsg newsMessage
 	err := json.Unmarshal([]byte(jsonString), &newsMsg)
 	assert.Nil(t, err)
 	assert.Equal(t, newsMsg.MsgType, "news")

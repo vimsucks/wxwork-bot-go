@@ -16,7 +16,7 @@ func TestTextMessage(t *testing.T) {
 				"mentioned_mobile_list":["13800001111","@all"]
 			}
 		}`
-	var textMsg TextMessage
+	var textMsg textMessage
 	err := json.Unmarshal([]byte(jsonString), &textMsg)
 	assert.Nil(t, err)
 	assert.Equal(t, textMsg.MsgType, "text")

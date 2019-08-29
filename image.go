@@ -1,7 +1,7 @@
 package wxworkbot
 
-type ImageMessage struct {
-	Message
+type imageMessage struct {
+	message
 	Image Image `json:"image"`
 }
 

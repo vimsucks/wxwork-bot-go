@@ -20,7 +20,7 @@ func TestMarshalText(t *testing.T) {
 }
 
 func TestMarshalTextMessage(t *testing.T) {
-	textMsg := TextMessage{
+	textMsg := textMessage{
 		Text: Text{
 			Content:             "广州今日天气：29度，大部分多云，降雨概率：60%",
 			MentionedList:       []string{"wangqing", "@all"},
@@ -46,7 +46,7 @@ func TestMarshalMarkdown(t *testing.T) {
 }
 
 func TestMarshalMarkdownMessage(t *testing.T) {
-	markdownMsg := MarkdownMessage{
+	markdownMsg := markdownMessage{
 		Markdown: Markdown{
 			Content: "<font color=\"warning\">233</font>",
 		},
@@ -71,7 +71,7 @@ func TestMarshalImage(t *testing.T) {
 }
 
 func TestMarshalImageMessage(t *testing.T) {
-	imageMsg := ImageMessage{
+	imageMsg := imageMessage{
 		Image: Image{
 			Base64: "DATA",
 			MD5:    "MD5",
@@ -103,7 +103,7 @@ func TestMarshalNews(t *testing.T) {
 }
 
 func TestMarshalNewsMessage(t *testing.T) {
-	newsMsg := NewsMessage{
+	newsMsg := newsMessage{
 		News: News{
 			Articles: []NewsArticle{
 				{
@@ -132,7 +132,7 @@ func TestMarshalUnsupportedMessage(t *testing.T) {
 }
 
 func TestSendWithInvalidBotKey(t *testing.T) {
-	textMsg := TextMessage{
+	textMsg := textMessage{
 		Text: Text{
 			Content:             "广州今日天气：29度，大部分多云，降雨概率：60%",
 			MentionedList:       []string{"wangqing", "@all"},
@@ -145,7 +145,7 @@ func TestSendWithInvalidBotKey(t *testing.T) {
 }
 
 //func TestSend(t *testing.T) {
-//	textMsg := TextMessage{
+//	textMsg := textMessage{
 //		Text:    Text{
 //			Content: "测试",
 //		},
