@@ -13,7 +13,7 @@ func init() {
 }
 
 const (
-	DefaultWebHookUrlTemplate = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s"
+	defaultWebHookUrlTemplate = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s"
 )
 
 var (
@@ -30,7 +30,7 @@ func New(botKey string) *WxWorkBot {
 	bot := WxWorkBot{
 		Key: botKey,
 		// 直接拼接出接口 URL
-		WebHookUrl: fmt.Sprintf(DefaultWebHookUrlTemplate, botKey),
+		WebHookUrl: fmt.Sprintf(defaultWebHookUrlTemplate, botKey),
 	}
 	return &bot
 }
@@ -53,7 +53,7 @@ func (bot *WxWorkBot) Send(msg interface{}) error {
 	}
 	body, _ := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
-	var wxWorkResp WxWorkResponse
+	var wxWorkResp wxWorkResponse
 	err = json.Unmarshal(body, &wxWorkResp)
 	if err != nil {
 		return err

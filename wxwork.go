@@ -1,6 +1,6 @@
 package wxworkbot
 
-type WxWorkResponse struct {
+type wxWorkResponse struct {
 	ErrorCode    int    `json:"errcode"`
 	ErrorMessage string `json:"errmsg"`
 }
