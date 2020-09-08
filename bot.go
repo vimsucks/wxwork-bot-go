@@ -7,9 +7,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 func init() {
+	client = &http.Client{
+		Timeout: 5*time.Second,
+	}
 }
 
 const (
@@ -18,6 +22,7 @@ const (
 
 var (
 	ErrUnsupportedMessage = errors.New("尚不支持的消息类型")
+	client *http.Client
 )
 
 type WxWorkBot struct {
@@ -46,7 +51,6 @@ func (bot *WxWorkBot) Send(msg interface{}) error {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
 		return err

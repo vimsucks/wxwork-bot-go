@@ -153,5 +153,8 @@ func TestSendWithInvalidBotKey(t *testing.T) {
 //	botKey := os.Getenv("BOTKEY")
 //	bot := New(botKey)
 //	err := bot.Send(textMsg)
+//	bot.Send(textMsg)
+//	bot.Send(textMsg)
+//	bot.Send(textMsg)
 //	assert.Nil(t, err)
 //}
