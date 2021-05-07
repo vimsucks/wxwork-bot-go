@@ -1,4 +1,5 @@
-package wxworkbot
+package sdk
+
 
 import (
 	"encoding/json"
@@ -21,3 +22,4 @@ func TestMarkdownMessage(t *testing.T) {
 	assert.Equal(t, markdownMsg.Markdown.Content,
 		"<font color=\"warning\">233</font>")
 }
+

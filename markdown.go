@@ -1,7 +1,7 @@
-package wxworkbot
+package sdk
 
 type markdownMessage struct {
-	message
+	messagetype
 	Markdown Markdown `json:"markdown"`
 }
 

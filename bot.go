@@ -1,4 +1,4 @@
-package wxworkbot
+package sdk
 
 import (
 	"bytes"
@@ -26,6 +26,7 @@ type WxWorkBot struct {
 }
 
 // 创建一个新的机器人实例
+
 func New(botKey string) *WxWorkBot {
 	bot := WxWorkBot{
 		Key: botKey,
@@ -36,6 +37,7 @@ func New(botKey string) *WxWorkBot {
 }
 
 // 发送消息，允许的参数类型：Text、Markdown、Image、News
+
 func (bot *WxWorkBot) Send(msg interface{}) error {
 	msgBytes, err := marshalMessage(msg)
 	if err != nil {
@@ -65,6 +67,7 @@ func (bot *WxWorkBot) Send(msg interface{}) error {
 }
 
 // 防止 < > 等 HTML 字符在 json.marshal 时被 escape
+
 func marshal(msg interface{}) ([]byte, error) {
 	buf := bytes.NewBuffer([]byte{})
 	jsonEncoder := json.NewEncoder(buf)
@@ -77,12 +80,15 @@ func marshal(msg interface{}) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
+
+
 // 将消息包装成企信接口要求的格式，返回 json bytes
+
 func marshalMessage(msg interface{}) ([]byte, error) {
 	if text, ok := msg.(Text); ok {
 		textMsg := textMessage{
-			message: message{MsgType: "text"},
-			Text:    text,
+			messagetype: messagetype{MsgType: "text"},
+			Text: text,
 		}
 		return marshal(textMsg)
 	}
@@ -92,7 +98,7 @@ func marshalMessage(msg interface{}) ([]byte, error) {
 	}
 	if markdown, ok := msg.(Markdown); ok {
 		markdownMsg := markdownMessage{
-			message:  message{MsgType: "markdown"},
+			messagetype:  messagetype{MsgType: "markdown"},
 			Markdown: markdown,
 		}
 		return marshal(markdownMsg)
@@ -103,7 +109,7 @@ func marshalMessage(msg interface{}) ([]byte, error) {
 	}
 	if image, ok := msg.(Image); ok {
 		imageMsg := imageMessage{
-			message: message{MsgType: "image"},
+			messagetype: messagetype{MsgType: "image"},
 			Image:   image,
 		}
 		return marshal(imageMsg)
@@ -114,7 +120,7 @@ func marshalMessage(msg interface{}) ([]byte, error) {
 	}
 	if news, ok := msg.(News); ok {
 		newsMsg := newsMessage{
-			message: message{MsgType: "news"},
+			messagetype: messagetype{MsgType: "news"},
 			News:    news,
 		}
 		return marshal(newsMsg)

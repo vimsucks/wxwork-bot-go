@@ -1,7 +1,9 @@
-package wxworkbot
+package sdk
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
+	"os"
 	"strings"
 	"testing"
 )
@@ -135,23 +137,25 @@ func TestSendWithInvalidBotKey(t *testing.T) {
 	textMsg := textMessage{
 		Text: Text{
 			Content:             "广州今日天气：29度，大部分多云，降雨概率：60%",
-			MentionedList:       []string{"wangqing", "@all"},
-			MentionedMobileList: []string{"13800001111", "@all"},
+			MentionedList:       []string{"v_yxxchen", "@v_yxxchen"},
+			MentionedMobileList: []string{"13800001111", "@v_yxxchen"},
 		},
 	}
-	bot := New("633a31f6-7f9c-4bc4-97a0-0ec1eefa589")
+	bot := New("")
 	err := bot.Send(textMsg)
 	assert.NotNil(t, err)
 }
 
-//func TestSend(t *testing.T) {
-//	textMsg := textMessage{
-//		Text:    Text{
-//			Content: "测试",
-//		},
-//	}
-//	botKey := os.Getenv("BOTKEY")
-//	bot := New(botKey)
-//	err := bot.Send(textMsg)
-//	assert.Nil(t, err)
-//}
+func TestSend(t *testing.T) {
+	textMsg := textMessage{
+		Text:    Text{
+			Content: "测试",
+		},
+	}
+	botKey := os.Getenv("")
+	fmt.Println(botKey)
+	bot := New(botKey)
+	fmt.Println(bot)
+	err := bot.Send(textMsg)
+	assert.Nil(t, err)
+}

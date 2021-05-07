@@ -1,7 +1,7 @@
-package wxworkbot
+package sdk
 
 type newsMessage struct {
-	message
+	messagetype
 	News News `json:"news"`
 }
 
@@ -15,3 +15,5 @@ type NewsArticle struct {
 	URL         string `json:"url"`
 	PicURL      string `json:"picurl"`
 }
+
+
