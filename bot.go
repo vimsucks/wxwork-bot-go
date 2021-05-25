@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 func init() {
@@ -23,6 +24,7 @@ var (
 type WxWorkBot struct {
 	Key        string
 	WebHookUrl string
+	Client     *http.Client
 }
 
 // 创建一个新的机器人实例
@@ -31,6 +33,8 @@ func New(botKey string) *WxWorkBot {
 		Key: botKey,
 		// 直接拼接出接口 URL
 		WebHookUrl: fmt.Sprintf(defaultWebHookUrlTemplate, botKey),
+		// 默认 5 秒超时
+		Client: &http.Client{Timeout: 5 * time.Second},
 	}
 	return &bot
 }
@@ -41,13 +45,16 @@ func (bot *WxWorkBot) Send(msg interface{}) error {
 	if err != nil {
 		return err
 	}
-	req, err := http.NewRequest(http.MethodPost, bot.WebHookUrl, bytes.NewBuffer(msgBytes))
+	webHookUrl := bot.WebHookUrl
+	if len(webHookUrl) == 0 {
+		webHookUrl = fmt.Sprintf(defaultWebHookUrlTemplate, bot.Key)
+	}
+	req, err := http.NewRequest(http.MethodPost, webHookUrl, bytes.NewBuffer(msgBytes))
 	if err != nil {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := bot.Client.Do(req)
 	if err != nil {
 		return err
 	}

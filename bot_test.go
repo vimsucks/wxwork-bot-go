@@ -2,9 +2,16 @@ package wxworkbot
 
 import (
 	"github.com/stretchr/testify/assert"
+	"net/http"
+	"os"
 	"strings"
 	"testing"
+	"time"
 )
+
+func getBotKey() string {
+	return os.Getenv("WXWORK_BOT_KEY")
+}
 
 func TestMarshalText(t *testing.T) {
 	text := Text{
@@ -131,6 +138,16 @@ func TestMarshalUnsupportedMessage(t *testing.T) {
 	assert.Equal(t, ErrUnsupportedMessage, err)
 }
 
+func TestSendText(t *testing.T) {
+	bot := New(getBotKey())
+	err := bot.Send(Text{
+		Content:             "测试发送文本消息",
+		MentionedList:       []string{"wangqing", "@all"},
+		MentionedMobileList: []string{"13800001111", "@all"},
+	})
+	assert.Nil(t, err)
+}
+
 func TestSendWithInvalidBotKey(t *testing.T) {
 	textMsg := textMessage{
 		Text: Text{
@@ -139,19 +156,22 @@ func TestSendWithInvalidBotKey(t *testing.T) {
 			MentionedMobileList: []string{"13800001111", "@all"},
 		},
 	}
-	bot := New("633a31f6-7f9c-4bc4-97a0-0ec1eefa589")
+	bot := New("这是一个错误的 BOT KEY")
 	err := bot.Send(textMsg)
 	assert.NotNil(t, err)
 }
 
-//func TestSend(t *testing.T) {
-//	textMsg := textMessage{
-//		Text:    Text{
-//			Content: "测试",
-//		},
-//	}
-//	botKey := os.Getenv("BOTKEY")
-//	bot := New(botKey)
-//	err := bot.Send(textMsg)
-//	assert.Nil(t, err)
-//}
+func TestWithCustomHttpClient(t *testing.T) {
+	bot := WxWorkBot{
+		Key: getBotKey(),
+		Client: &http.Client{
+			Timeout: 1 * time.Second,
+		},
+	}
+	err := bot.Send(Text{
+		Content:             "广州今日天气：29度，大部分多云，降雨概率：60%",
+		MentionedList:       []string{"wangqing", "@all"},
+		MentionedMobileList: []string{"13800001111", "@all"},
+	})
+	assert.Nil(t, err)
+}
