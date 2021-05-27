@@ -1,4 +1,4 @@
-package sdk
+package swxworkbot
 
 type newsMessage struct {
 	messagetype

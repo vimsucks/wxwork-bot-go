@@ -1,4 +1,4 @@
-package sdk
+package wxworkbot
 
 type markdownMessage struct {
 	messagetype
