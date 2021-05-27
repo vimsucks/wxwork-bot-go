@@ -137,8 +137,8 @@ func TestSendWithInvalidBotKey(t *testing.T) {
 	textMsg := textMessage{
 		Text: Text{
 			Content:             "广州今日天气：29度，大部分多云，降雨概率：60%",
-			MentionedList:       []string{"v_yxxchen", "@v_yxxchen"},
-			MentionedMobileList: []string{"13800001111", "@v_yxxchen"},
+			MentionedList:       []string{"wangqing", "@all"},
+			MentionedMobileList: []string{"13800001111", "@all"},
 		},
 	}
 	bot := New("")
