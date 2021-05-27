@@ -16,6 +16,7 @@ func TestImageMessage(t *testing.T) {
 			}
 		}
 	`
+
 	var imageMsg imageMessage
 	err := json.Unmarshal([]byte(jsonString), &imageMsg)
 	assert.Nil(t, err)
