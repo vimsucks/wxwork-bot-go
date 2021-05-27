@@ -1,4 +1,4 @@
-package sdk
+package wxworkbot
 
 import (
 	"encoding/json"
