@@ -27,7 +27,7 @@ type WxWorkBot struct {
 	Client     *http.Client
 }
 
-// 创建一个新的机器人实例
+// New 创建一个新的机器人实例
 func New(botKey string) *WxWorkBot {
 	bot := WxWorkBot{
 		Key: botKey,
@@ -129,6 +129,17 @@ func marshalMessage(msg interface{}) ([]byte, error) {
 	if newsMsg, ok := msg.(newsMessage); ok {
 		newsMsg.MsgType = "news"
 		return marshal(newsMsg)
+	}
+	if templateCard, ok := msg.(TemplateCard); ok {
+		templateCardMsg := templateCardMessage{
+			message:      message{MsgType: "template_card"},
+			TemplateCard: templateCard,
+		}
+		return marshal(templateCardMsg)
+	}
+	if templateCardMsg, ok := msg.(templateCardMessage); ok {
+		templateCardMsg.MsgType = "template_card"
+		return marshal(templateCardMsg)
 	}
 	return nil, ErrUnsupportedMessage
 }
