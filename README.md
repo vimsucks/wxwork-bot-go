@@ -1,5 +1,7 @@
 # wxwork-bot-go
 
+![](https://github.com/vimsucks/wxwork-bot-go/actions/workflows/build.yml/badge.svg)
+
 企业微信群机器人接口 Golang 封装
 
 ## Usage
